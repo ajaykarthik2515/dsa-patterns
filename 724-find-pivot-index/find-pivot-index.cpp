@@ -22,3 +22,40 @@ public:
     }
 };
 
+/*
+Can we optimize it?
+
+Yes. You don't actually need the entire prefix array.
+
+Notice that:
+
+leftSum = sum of elements before i
+rightSum = totalSum - leftSum - nums[i]
+
+So instead of storing all prefix sums, you can maintain a running leftSum.
+
+Optimized Solution (O(1) Space)
+class Solution {
+public:
+    int pivotIndex(vector<int>& nums) {
+        int totalSum = 0;
+
+        for (int num : nums)
+            totalSum += num;
+
+        int leftSum = 0;
+
+        for (int i = 0; i < nums.size(); i++) {
+            int rightSum = totalSum - leftSum - nums[i];
+
+            if (leftSum == rightSum)
+                return i;
+
+            leftSum += nums[i];
+        }
+
+        return -1;
+    }
+};
+*/
+
